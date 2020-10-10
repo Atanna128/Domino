@@ -14,4 +14,11 @@ public class domino {
     public int getRightValue() {
         return rightValue;
     }
+
+    public boolean isMatched(domino temp){
+        if(this.rightValue != temp.rightValue && this.rightValue != temp.leftValue)
+            return false;
+        return true;
+    }
+
 }

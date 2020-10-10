@@ -1,8 +1,22 @@
+import java.util.Random;
 import java.util.Scanner;
-import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ConsoleDomino{
+    private static final int START_CARD_NUMBER = 8;
 
+    public static void shuffleArray(domino[] ar)
+    {
+        Random rnd = ThreadLocalRandom.current();
+        for (int i = ar.length - 1; i > 0; i--)
+        {
+            int index = rnd.nextInt(i + 1);
+            // Simple swap
+            domino a = ar[index];
+            ar[index] = ar[i];
+            ar[i] = a;
+        }
+    }
     public static void validatePlay() throws Exception {
 
         domino[] dominos = new domino[] {
@@ -41,13 +55,13 @@ public class ConsoleDomino{
 
         //establish decks
         System.out.println("Humans: " + humanPlayers + " - Computers: " + computerPlayers);
-        initDecks(humanPlayers, computerPlayers);
+        domino[] initDecks = initDecks(humanPlayers, computerPlayers);
 
         //switch to gameLogic
-        gameLogic();
+        gameLogic(humanPlayers, computerPlayers, initDecks);
     }
 
-    public static void initDecks(int humanCount, int computerCount) {
+    public static domino[] initDecks(int humanCount, int computerCount) {
         //logic to establish decks dynamically based off number of players
         domino[] startDeck = new domino[] {
                 new domino(0,0),
@@ -116,10 +130,26 @@ public class ConsoleDomino{
                 new domino(9,9)
         };
         System.out.println("Deck Length -> " + startDeck.length);
+        return startDeck;
     }
 
-    public static void gameLogic() {
-        //main game logic
+    public static void gameLogic(int humanPlayer, int computerPlayer, domino[] initDecks) {
+        //main game logic: khoi tao nguoi choi va chia bai
+        int j, i, l, k = 0; //j to count players, i to run loop to get card from start card pool (everytime is (k=8) card/player
+        Player [] players = new Player[humanPlayer+computerPlayer];
+        shuffleArray(initDecks);
+
+        for (j = 0; j < humanPlayer; j++){
+            domino[] temp = new domino[START_CARD_NUMBER];
+            l = 0;
+            for (i=k; i < k+START_CARD_NUMBER; i++){
+                temp[l++] = initDecks[i];
+            }
+            k+=8;
+            players[j] = new Player(temp);
+            System.out.println();
+            players[j].showCard();
+        }
     }
 
     public static void main(String[] args) throws Exception {
@@ -129,6 +159,6 @@ public class ConsoleDomino{
         System.out.println("-Player selection here");
 
         initGame();
-        //validatePlay();
+//        validatePlay();
     }
 }

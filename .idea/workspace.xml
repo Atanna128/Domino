@@ -33,7 +33,14 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.ConsoleDomino">
+    <configuration name="ConsoleDomino" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ConsoleDomino" />
+      <module name="Domino" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Domino" />
@@ -44,17 +51,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ConsoleDomino" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -65,10 +80,29 @@
       <option name="presentableId" value="Default" />
       <updated>1602303377367</updated>
       <workItem from="1602303379717" duration="2247000" />
+      <workItem from="1602317309546" duration="4252000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1493" height="319" key="GridCell.Tab.0.bottom" timestamp="1602321567254">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="319" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1602321567254" />
+    <state width="1493" height="319" key="GridCell.Tab.0.center" timestamp="1602321567254">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="319" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1602321567254" />
+    <state width="1493" height="319" key="GridCell.Tab.0.left" timestamp="1602321567254">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="319" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1602321567254" />
+    <state width="1493" height="319" key="GridCell.Tab.0.right" timestamp="1602321567254">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="319" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1602321567254" />
   </component>
 </project>
