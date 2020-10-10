@@ -6,6 +6,7 @@ public class Player {
     ArrayList<domino> train;
     boolean open_train;
     String name;
+    int point = 0;
 
     public Player(domino[] left_card, String name, boolean open_train) {
         this.left_card = new ArrayList<>(Arrays.asList(left_card));
@@ -40,5 +41,11 @@ public class Player {
                 System.out.print("[" + temp.getLeftValue() + " | " + temp.getRightValue() + "], ");
         }
         System.out.println();
+    }
+
+    public int getTotalPoint(){
+        for (domino temp : this.left_card)
+            this.point += (temp.getLeftValue()+ temp.getRightValue());
+        return this.point;
     }
 }

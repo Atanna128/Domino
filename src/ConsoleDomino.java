@@ -169,51 +169,48 @@ public class ConsoleDomino{
 
         //GAME REALLY STARTS NOW !
         while(game_on){
-            //GAME INFO PER TURN = GAME STATE PART + BOARD PART
-            Scanner scanner= new Scanner(System.in);
             String choice;
-            int index;
-            int count = 0, count2 = 0;
-            // GAME STATE PART
-            System.out.println("GameState:");
-            System.out.println("Humans:");
-            for(i = 0; i < humanPlayer; i++){
-                players[i].showCardInHand();
-                count++;
-            }
-
-            System.out.println("Computers: ");
-            for(i = count ; i < number_player; i++){
-                players[i].showCardInHand();
-                count++;
-            }
-            System.out.println();
-
-            System.out.println("Center: [9 | 9]");
-
-            //BOARD PART
-            System.out.println("Board: ");
-            for(i = 0; i < humanPlayer; i++){
-                players[i].showCardInTrain();
-                count2++;
-            }
-
-            for(i = count2 ; i < number_player; i++){
-                players[i].showCardInTrain();
-                count2++;
-            }
-            int mexican = count2+1;
-            int boneyard = count2;
-
-            players[mexican].showCardInHand();
-            players[boneyard].showCardInHand();
+            int index, count3=0;
+            Scanner scanner= new Scanner(System.in);
+            int mexican = number_player+1;
+            int boneyard = number_player;
 
             //PLAYER PLAYS PART
-            count = 0;
-            count2 = 0;
-
             for(i = 0; i < humanPlayer; i++){
                 do {
+                    //GAME INFO PER TURN = GAME STATE PART + BOARD PART
+
+                    int count = 0, count2 = 0;
+                    // GAME STATE PART
+                    System.out.println("##### GameState #####");
+                    System.out.println("Humans:");
+                    for(j = 0; j < humanPlayer; j++){
+                        players[j].showCardInHand();
+                        count++;
+                    }
+
+                    System.out.println("Computers: ");
+                    for(j = count ; j < number_player; j++){
+                        players[j].showCardInHand();
+                    }
+                    System.out.println();
+
+                    System.out.println("Center: [9 | 9]");
+
+                    //BOARD PART
+                    System.out.println("Board: ");
+                    for(j = 0; j < humanPlayer; j++){
+                        players[j].showCardInTrain();
+                        count2++;
+                    }
+
+                    for(j = count2 ; j < number_player; j++){
+                        players[j].showCardInTrain();
+                    }
+                    players[mexican].showCardInHand();
+                    players[boneyard].showCardInHand();
+
+                    System.out.println("Current Player:"+(i+1));
                     System.out.println(players[i].name + "'s Turn");
                     System.out.println("[p] play domino");
                     System.out.println("[d] draw from boneyard");
@@ -232,29 +229,44 @@ public class ConsoleDomino{
                             for (Player player : players)
                                 if (player.name.equals(train) && player.open_train) {
                                     open_flag = false;
-                                    domino card_to_play = players[i].playCard(index);
+                                    domino card_to_play = players[i].left_card.get(index);
                                     System.out.println("Flip?");
                                     choice = scanner.nextLine();
-                                    if(choice == "Yes"){
-                                        int lastindex = players[mexican].left_card.size()-1;
-                                        domino latest_card_on_train = players[mexican].left_card.get(lastindex);
-                                        if(!card_to_play.isMatchedFlip(latest_card_on_train)) {
+
+                                    int lastindex = players[mexican].left_card.size()-1;
+
+                                    domino latest_card_on_train = players[mexican].left_card.get(lastindex);
+                                    if(choice.equals("Yes")){
+                                        if(card_to_play.isMatchedFlip(latest_card_on_train)) {
+                                            if (player.name == "Mexican Train") {
+                                                player.left_card.add(card_to_play);
+                                            } else
+                                                player.train.add(card_to_play);
+                                            players[i].playCard(index);
+                                            choice = Character.toString('q');
+                                        }
+                                        else{
                                             System.out.println("Wrong card !");
                                             break;
                                         }
                                     }
                                     else{
-                                        domino latest_card_on_train = players[mexican].left_card.get(players[mexican].left_card.size()-1);
-                                        if(!card_to_play.isMatched(latest_card_on_train)) {
+                                        if(card_to_play.isMatched(latest_card_on_train)) {
+                                            if (player.name == "Mexican Train") {
+                                                player.left_card.add(card_to_play);
+                                            } else
+                                                player.train.add(card_to_play);
+                                            players[i].playCard(index);
+                                            choice = Character.toString('q');
+                                        }
+                                        else{
                                             System.out.println("Wrong card !");
                                             break;
                                         }
                                     }
-                                    if (player.name == "Mexican Train") {
-                                        player.left_card.add(card_to_play);
-                                    } else
-                                        player.train.add(card_to_play);
-                                    open_flag = false;
+
+                                    if(players[i].left_card.size()==0)
+                                        game_on = false;
                                     break;
                                 }
                             if (open_flag) {
@@ -265,15 +277,19 @@ public class ConsoleDomino{
                                     break;
                             }
                         } while (open_flag);
-                    } else if (choice.charAt(0) == 'd') {
-                        domino draw_card = players[count2].left_card.remove(0);
-
+                    }
+                    else if (choice.charAt(0) == 'd') {
+                        domino draw_card = players[mexican].left_card.remove(0);
                         players[i].drawCard(draw_card);
                         players[i].showCardInHand();
+                        choice = Character.toString('q');
                     }
-                    count++;
+                    count3++;
                 }while(choice.charAt(0) != 'q');
             }
+        }
+        for (int m=0; m<number_player; m++){
+            System.out.println(players[m].name+": "+players[m].getTotalPoint());
         }
     }
 
@@ -285,5 +301,9 @@ public class ConsoleDomino{
 
         initGame();
 //        validatePlay();
+    }
+
+    public void showGameState(){
+
     }
 }
