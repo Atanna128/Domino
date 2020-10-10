@@ -202,11 +202,16 @@ public class ConsoleDomino{
                 players[i].showCardInTrain();
                 count2++;
             }
-            players[count2+1].showCardInHand();
-            players[count2].showCardInHand();
+            int mexican = count2+1;
+            int boneyard = count2;
+
+            players[mexican].showCardInHand();
+            players[boneyard].showCardInHand();
 
             //PLAYER PLAYS PART
             count = 0;
+            count2 = 0;
+
             for(i = 0; i < humanPlayer; i++){
                 do {
                     System.out.println(players[i].name + "'s Turn");
@@ -228,11 +233,28 @@ public class ConsoleDomino{
                                 if (player.name.equals(train) && player.open_train) {
                                     open_flag = false;
                                     domino card_to_play = players[i].playCard(index);
+                                    System.out.println("Flip?");
+                                    choice = scanner.nextLine();
+                                    if(choice == "Yes"){
+                                        int lastindex = players[mexican].left_card.size()-1;
+                                        domino latest_card_on_train = players[mexican].left_card.get(lastindex);
+                                        if(!card_to_play.isMatchedFlip(latest_card_on_train)) {
+                                            System.out.println("Wrong card !");
+                                            break;
+                                        }
+                                    }
+                                    else{
+                                        domino latest_card_on_train = players[mexican].left_card.get(players[mexican].left_card.size()-1);
+                                        if(!card_to_play.isMatched(latest_card_on_train)) {
+                                            System.out.println("Wrong card !");
+                                            break;
+                                        }
+                                    }
                                     if (player.name == "Mexican Train") {
                                         player.left_card.add(card_to_play);
                                     } else
                                         player.train.add(card_to_play);
-                                    players[i].showCardInHand();
+                                    open_flag = false;
                                     break;
                                 }
                             if (open_flag) {
@@ -249,7 +271,7 @@ public class ConsoleDomino{
                         players[i].drawCard(draw_card);
                         players[i].showCardInHand();
                     }
-//                    count++;
+                    count++;
                 }while(choice.charAt(0) != 'q');
             }
         }

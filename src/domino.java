@@ -16,9 +16,14 @@ public class domino {
     }
 
     public boolean isMatched(domino temp){
-        if(this.rightValue != temp.rightValue && this.rightValue != temp.leftValue)
+        if(this.leftValue != temp.rightValue)
             return false;
         return true;
     }
 
+    public boolean isMatchedFlip(domino temp){
+        if(this.rightValue != temp.rightValue)
+            return false;
+        return true;
+    }
 }
