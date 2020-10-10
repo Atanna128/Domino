@@ -14,4 +14,20 @@ public class domino {
     public int getRightValue() {
         return rightValue;
     }
+    public boolean isMatched(domino temp){
+        if(this.leftValue != temp.rightValue)
+            return false;
+        return true;
+    }
+
+    public boolean isMatchedFlip(domino temp){
+        if(this.rightValue != temp.rightValue)
+            return false;
+        return true;
+    }
+    public void flip(domino domino){
+        int temp = domino.getLeftValue();
+        domino.leftValue = domino.rightValue;
+        domino.rightValue = temp;
+    }
 }

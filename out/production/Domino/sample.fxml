@@ -28,10 +28,10 @@
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Button maxHeight="200.0" maxWidth="100.0" mnemonicParsing="false" prefHeight="100.0" text="open" />
-                  <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="open" />
-                  <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="open" />
-                  <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="open" />
-                  <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="open" />
+                  <Button fx:id="gate1" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="open" />
+                  <Button fx:id="gate2" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="open" />
+                  <Button fx:id="gate3" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="open" />
+                  <Button fx:id="gate4" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="open" />
                </children>
             </VBox>
             <VBox prefHeight="200.0">
@@ -71,7 +71,7 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Current player:" wrappingWidth="79.990234375">
+                  <Text fx:id="currentPlayer" strokeType="OUTSIDE" strokeWidth="0.0" text="Current player:" wrappingWidth="79.990234375">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" top="5.0" />
                      </HBox.margin>
@@ -83,32 +83,47 @@
                   </Text>
                   <Button fx:id="choosenTrain" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Train">
                      <HBox.margin>
-                        <Insets bottom="2.0" top="2.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select domino" textAlignment="CENTER">
+                  <Button mnemonicParsing="false" onAction="#select" text="Select domino">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#draw" text="Draw">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#skip" text="Skip">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <TextArea fx:id="numberPlayer" prefHeight="200.0" prefWidth="150.0" promptText="No. player">
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
-                  </Text>
-                  <Button mnemonicParsing="false" onAction="#select" text="Select domino">
+                  </TextArea>
+                  <TextArea fx:id="numberComputer" prefHeight="200.0" prefWidth="150.0" promptText="No. computer">
                      <HBox.margin>
-                        <Insets bottom="2.0" right="5.0" top="2.0" />
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" text="Draw">
+                  </TextArea>
+                  <Button mnemonicParsing="false" onAction="#startGame" text="Start">
                      <HBox.margin>
-                        <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" text="Skip">
-                     <HBox.margin>
-                        <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
-            <ListView fx:id="dominoList" prefHeight="253.0" prefWidth="600.0" />
+            <HBox>
+               <children>
+                  <ListView fx:id="dominoList" prefHeight="253.0" prefWidth="600.0" />
+                  <ListView fx:id="boneyardList" prefHeight="253.0" prefWidth="600.0" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </bottom>
