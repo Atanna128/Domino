@@ -127,28 +127,131 @@ public class ConsoleDomino{
                 new domino(9,6),
                 new domino(9,7),
                 new domino(9,8),
-                new domino(9,9)
+//                new domino(9,9)
         };
         System.out.println("Deck Length -> " + startDeck.length);
         return startDeck;
     }
 
     public static void gameLogic(int humanPlayer, int computerPlayer, domino[] initDecks) {
-        //main game logic: khoi tao nguoi choi va chia bai
+        //GAME SETUP : PLAYER, CARD, INFO OF TRAIN ...
+        boolean game_on = true;
+        int number_player = humanPlayer+computerPlayer;
+
+        // khoi tao nguoi choi va chia bai
         int j, i, l, k = 0; //j to count players, i to run loop to get card from start card pool (everytime is (k=8) card/player
-        Player [] players = new Player[humanPlayer+computerPlayer];
+        Player [] players = new Player[number_player+2]; // khoi tao human, computer, mexican(train dung chung), card pool
         shuffleArray(initDecks);
 
-        for (j = 0; j < humanPlayer; j++){
-            domino[] temp = new domino[START_CARD_NUMBER];
+        for (j = 0; j < number_player+1; j++){
             l = 0;
-            for (i=k; i < k+START_CARD_NUMBER; i++){
-                temp[l++] = initDecks[i];
+            if(j != number_player) {
+                domino[] temp = new domino[START_CARD_NUMBER];
+                for (i = k; i < k + START_CARD_NUMBER; i++) {
+                    temp[l++] = initDecks[i];
+                }
+                k += 8;
+                if(j < humanPlayer)
+                    players[j] = new Player(temp, "Player"+(j+1), false);
+                else
+                    players[j] = new Player(temp, "Computer"+(j+1), false);
             }
-            k+=8;
-            players[j] = new Player(temp);
+            else {
+                domino[] boneyard = new domino[initDecks.length - 8 * number_player];
+                for (i = k; i < initDecks.length; i++) {
+                    boneyard[l++] = initDecks[i];
+                }
+                players[j] = new Player(boneyard, "Boneyard", false);
+            }
+        }
+        domino[] temp_mexican = new domino[]{new domino(9,9)};
+        players[number_player+1] = new Player(temp_mexican, "Mexican Train", true);
+
+        //GAME REALLY STARTS NOW !
+        while(game_on){
+            //GAME INFO PER TURN = GAME STATE PART + BOARD PART
+            Scanner scanner= new Scanner(System.in);
+            String choice;
+            int index;
+            int count = 0, count2 = 0;
+            // GAME STATE PART
+            System.out.println("GameState:");
+            System.out.println("Humans:");
+            for(i = 0; i < humanPlayer; i++){
+                players[i].showCardInHand();
+                count++;
+            }
+
+            System.out.println("Computers: ");
+            for(i = count ; i < number_player; i++){
+                players[i].showCardInHand();
+                count++;
+            }
             System.out.println();
-            players[j].showCard();
+
+            System.out.println("Center: [9 | 9]");
+
+            //BOARD PART
+            System.out.println("Board: ");
+            for(i = 0; i < humanPlayer; i++){
+                players[i].showCardInTrain();
+                count2++;
+            }
+
+            for(i = count2 ; i < number_player; i++){
+                players[i].showCardInTrain();
+                count2++;
+            }
+            players[count2+1].showCardInHand();
+            players[count2].showCardInHand();
+
+            //PLAYER PLAYS PART
+            count = 0;
+            for(i = 0; i < humanPlayer; i++){
+                do {
+                    System.out.println(players[i].name + "'s Turn");
+                    System.out.println("[p] play domino");
+                    System.out.println("[d] draw from boneyard");
+                    System.out.println("[q] quit");
+                    choice = scanner.nextLine();
+
+                    //Choice play
+                    if (choice.charAt(0) == 'p') {
+                        System.out.println("Which domino?");
+                        index = scanner.nextInt();
+                        boolean open_flag = true;
+                        do {
+                            String temp = scanner.nextLine();
+                            System.out.println("Which train?");
+                            String train = scanner.nextLine();
+                            for (Player player : players)
+                                if (player.name.equals(train) && player.open_train) {
+                                    open_flag = false;
+                                    domino card_to_play = players[i].playCard(index);
+                                    if (player.name == "Mexican Train") {
+                                        player.left_card.add(card_to_play);
+                                    } else
+                                        player.train.add(card_to_play);
+                                    players[i].showCardInHand();
+                                    break;
+                                }
+                            if (open_flag) {
+                                System.out.println("That train is not open, please try again!");
+                                System.out.println("To come back to menu press b, continue press c");
+                                choice = scanner.nextLine();
+                                if (choice.charAt(0) == 'b')
+                                    break;
+                            }
+                        } while (open_flag);
+                    } else if (choice.charAt(0) == 'd') {
+                        domino draw_card = players[count2].left_card.remove(0);
+
+                        players[i].drawCard(draw_card);
+                        players[i].showCardInHand();
+                    }
+//                    count++;
+                }while(choice.charAt(0) != 'q');
+            }
         }
     }
 
