@@ -33,10 +33,12 @@ public class ConsoleDomino{
         //dialogue options
         System.out.println("Please enter the number of human players:");
         Scanner scanHuman = new Scanner(System.in);
+        while (!scanHuman.hasNextInt()) scanHuman.next();
         humanPlayers = scanHuman.nextInt();
 
         System.out.println("Please enter the number of computer players:");
         Scanner scanComputer = new Scanner(System.in);
+        while (!scanComputer.hasNextInt()) scanComputer.next();
         computerPlayers = scanComputer.nextInt();
 
         //establish decks
@@ -127,7 +129,6 @@ public class ConsoleDomino{
         System.out.println("If you do not know the rules they can be found here -> https://www.mexicantrainrulesandstrategies.com");
         System.out.println("Up to 4 players can play with any mix of computer and human players.");
         System.out.println("-Player selection here");
-
         initGame();
         //validatePlay();
     }
