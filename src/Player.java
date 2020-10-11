@@ -29,16 +29,26 @@ public class Player {
 
     public void showCardInHand(){
         System.out.println(this.name+": ");
-        for (domino temp : this.left_card)
-            System.out.print("["+temp.getLeftValue() + " | " + temp.getRightValue()+"], ");
+        int count = 0;
+        for (domino temp : this.left_card) {
+            System.out.print("[" + temp.getLeftValue() + " | " + temp.getRightValue() + "], ");
+            count++;
+            if(count % 5 == 0)
+                System.out.println();
+        }
         System.out.println();
     }
 
     public void showCardInTrain(){
         System.out.println(this.name+"("+this.open_train+"):");
+        int count = 0;
         if (this.train != null) {
-            for (domino temp : this.train)
+            for (domino temp : this.train){
                 System.out.print("[" + temp.getLeftValue() + " | " + temp.getRightValue() + "], ");
+                count++;
+                if(count % 5 == 0)
+                    System.out.println();
+            }
         }
         System.out.println();
     }

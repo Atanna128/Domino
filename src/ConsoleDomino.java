@@ -5,7 +5,9 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ConsoleDomino{
-    private static final int START_CARD_NUMBER = 8;
+    private static final int START_CARD_NUMBER_4 = 10;
+    private static final int START_CARD_NUMBER_3 = 13;
+    private static final int START_CARD_NUMBER_2 = 15;
 
     public static void shuffleArray(domino[] ar)
     {
@@ -139,7 +141,15 @@ public class ConsoleDomino{
         //GAME SETUP : PLAYER, CARD, INFO OF TRAIN ...
         boolean game_on = true;
         int number_player = humanPlayer+computerPlayer;
+        int start_card_number;
         Ai aiProcessing = new Ai();
+        switch (number_player){
+            case 2:start_card_number = START_CARD_NUMBER_2;break;
+            case 3:start_card_number = START_CARD_NUMBER_3;break;
+            case 4:start_card_number = START_CARD_NUMBER_4;break;
+            default:start_card_number = 8;break;
+        }
+
         // khoi tao nguoi choi va chia bai
         int j, i, l, k = 0; //j to count players, i to run loop to get card from start card pool (everytime is (k=8) card/player
         Player [] players = new Player[number_player+2]; // khoi tao human, computer, mexican(train dung chung), card pool
@@ -148,8 +158,8 @@ public class ConsoleDomino{
         for (j = 0; j < number_player+1; j++){
             l = 0;
             if(j != number_player) {
-                domino[] temp = new domino[START_CARD_NUMBER];
-                for (i = k; i < k + START_CARD_NUMBER; i++) {
+                domino[] temp = new domino[start_card_number];
+                for (i = k; i < k + start_card_number; i++) {
                     temp[l++] = initDecks[i];
                 }
                 k += 8;
@@ -312,7 +322,7 @@ public class ConsoleDomino{
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void run() throws Exception {
         System.out.println("Welcome to Mexican Train!");
         System.out.println("If you do not know the rules they can be found here -> https://www.mexicantrainrulesandstrategies.com");
         System.out.println("Up to 4 players can play with any mix of computer and human players.");
