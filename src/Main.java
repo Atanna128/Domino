@@ -10,7 +10,7 @@ public class Main {
 
         switch (choice){
             case 1:ConsoleDomino.run();break;
-//            case 2:GUIDomino.run();break;
+            case 2:javafx.application.Application.lauch(GUIDomino.class);
             default:break;
         }
     }

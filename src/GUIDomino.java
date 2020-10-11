@@ -15,5 +15,4 @@ public class GUIDomino extends Application{
     public static void run(String[] args) {
         launch(args);
     }
-
 }
