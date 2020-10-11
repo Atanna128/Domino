@@ -130,9 +130,9 @@ public class Ai {
             else {
                 for (Player temp : players) {
                     if (temp.train.size() >= 1) {
-                        if (maxDomino.isMatched(temp.train.get(temp.train.size() - 1)) && player.open_train) {
+                        if (maxDomino.isMatched(temp.train.get(temp.train.size() - 1)) && temp.open_train) {
                             temp.train.add(maxDomino);
-                        } else if (maxDomino.isMatchedFlip(temp.train.get(temp.train.size() - 1)) && player.open_train) {
+                        } else if (maxDomino.isMatchedFlip(temp.train.get(temp.train.size() - 1)) && temp.open_train) {
                             maxDomino.flip();
                             temp.train.add(maxDomino);
                         }
