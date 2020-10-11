@@ -66,6 +66,7 @@ public class Ai {
                             if (player.train.size() >= 1) {
                                 if (player.train.get(player.train.size() - 1).getRightValue() == maxDouble.getLeftValue() && player.open_train) {
                                     player.train.add(maxDouble);
+                                    break;
                                 }
                             }
                         }
